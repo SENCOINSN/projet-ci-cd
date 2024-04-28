@@ -99,7 +99,6 @@ jobs:
       - name: Build & Push to DockerHub
         uses: docker/build-push-action@v5
         with:
-          context: backend
           file: docker/backend/Dockerfile
           push: true
           platforms: linux/amd64
