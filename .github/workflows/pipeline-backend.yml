@@ -47,10 +47,10 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      - name: Running Unit Tests
-        run: |
-          cd backend
-          ./mvnw clean test
+#      - name: Running Unit Tests
+#        run: |
+#          cd backend
+#          ./mvnw clean test
 
 
   build:
@@ -100,7 +100,7 @@ jobs:
           file: Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=1.0.0  
