@@ -71,6 +71,7 @@ jobs:
       - name: Build project
         run: |
           cd backend
+          chmod +x mvnw
           ./mvnw clean package -DskipTests
           
 
