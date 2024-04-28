@@ -24,7 +24,7 @@ export class AuthorizationGuardGuard implements CanActivate{
       }
       return false;
     }else{
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl('/login')
       return false;
     }
   }

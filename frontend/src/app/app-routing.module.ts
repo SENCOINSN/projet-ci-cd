@@ -13,7 +13,7 @@ import {AuthGuardGuard} from "./guards/auth-guard.guard";
 import {AuthorizationGuardGuard} from "./guards/authorization-guard.guard";
 
 const routes: Routes = [
-  {path:"",component:LoginComponent},
+  {path:"login",component:LoginComponent},
   {path:"admin",component:AdminTemplateComponent,
     canActivate:[AuthGuardGuard],
     children:[

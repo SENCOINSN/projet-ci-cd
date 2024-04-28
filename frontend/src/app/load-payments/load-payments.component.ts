@@ -26,7 +26,6 @@ export class LoadPaymentsComponent implements OnInit{
       .subscribe({
         next:resp=>{
           this.payments = resp;
-          //console.log(" resp "+JSON.stringify(resp))
            this.dataSource=new MatTableDataSource(this.payments)
           this.dataSource.paginator=this.paginator
         },error:err=>{

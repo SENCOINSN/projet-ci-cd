@@ -1,0 +1,48 @@
+services:
+  postgres:
+    container_name: postgres-sql-bsn
+    image: postgres
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: bd_payments
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+  backend-api:
+    container_name: backend-api
+    image: adama93/backend:1.0.0
+    ports:
+      - 9080:9080
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+  frontend-ui:
+    container_name: frontend-ui
+    image: adama93/frontent-ang-app:1.0.0
+    ports:
+      - 8080:80
+    networks:
+      - spring-demo
+    depends_on:
+      - backend-api
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

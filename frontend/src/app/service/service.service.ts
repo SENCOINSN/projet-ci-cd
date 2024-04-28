@@ -15,7 +15,7 @@ export class ServiceService {
  public username:any;
  public isAuthenticated:boolean=false;
  public roles:string[]=[];
- public apiUrl="http://localhost:9080/"
+ public apiUrl="http://localhost:9080/api/v1/"
   constructor(private router:Router,
               private http:HttpClient) { }
 
@@ -36,10 +36,10 @@ export class ServiceService {
     this.isAuthenticated=false;
     this.roles=[];
     this.username=undefined;
-    this.router.navigateByUrl("/")
+    this.router.navigateByUrl("/login")
  }
 
  loadPayment():Observable<any>{
-    return this.http.get("http://localhost:9080/payments");
+    return this.http.get(this.apiUrl+"payments");
  }
 }

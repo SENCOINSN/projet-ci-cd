@@ -22,7 +22,7 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	CommandLineRunner commandLineRunner(StudentRepository studentRepository,
 										PaymentRepository paymentRepository){
 
@@ -90,5 +90,5 @@ public class BackendApplication {
 				}
 			});
 		};
-	}
+	}*/
 }
