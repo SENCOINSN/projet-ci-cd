@@ -94,15 +94,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build & Push to DockerHub
-        uses: mr-smithers-excellent/docker-build-push@v5
+        uses: docker/build-push-action@v5
         with:
-          image: adama93/backend
-          tags: 1.0.0
-          registry: docker.io
-          Dockerfile: Dockerfile
+          context: backend
+          file: Dockerfile
           push: true
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=1.0.0  
