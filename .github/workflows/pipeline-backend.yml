@@ -3,7 +3,7 @@ name: Backend API Pipeline
 on:
   push:
     branches:
-      - ci/pipeline
+      - main
     paths:
       - backend/**
       - docker/backend/**
