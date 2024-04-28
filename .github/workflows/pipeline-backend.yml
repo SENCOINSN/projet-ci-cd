@@ -99,7 +99,7 @@ jobs:
           image: adama93/backend
           tags: 1.0.0
           registry: docker.io
-          file: docker/backend/Dockerfile
+          Dockerfile: Dockerfile
           push: true
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
