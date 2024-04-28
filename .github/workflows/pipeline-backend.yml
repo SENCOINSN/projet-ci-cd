@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - 'Dockerfile'
       - backend/**
       - docker/backend/**
       - 'docker-compose.yml'
@@ -95,7 +96,6 @@ jobs:
       - name: Build & Push to DockerHub
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          context: backend
           image: adama93/backend
           tags: 1.0.0
           registry: docker.io
