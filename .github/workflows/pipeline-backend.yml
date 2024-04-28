@@ -85,10 +85,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Extract project version
-        id: extract_version
-        run: |
-          echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
