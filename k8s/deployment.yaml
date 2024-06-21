@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: adama93/backend
+        name: backend
+        env:   
+        - name: DATASOURCE_URL   
+          valueFrom:
+            configMapKeyRef :
+                  name: backend-cm
+                  key: url 
+        - name: DATASOURCE_USERNAME  
+          valueFrom :
+              configMapKeyRef :
+                name: backend-cm
+                key : username
+        - name: DATASOURCE_PASSWORD 
+          valueFrom :
+              secretKeyRef : 
+                name: backend-secret
+                key : password        
+
+
+
+        
