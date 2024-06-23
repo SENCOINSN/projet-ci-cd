@@ -50,6 +50,7 @@ jobs:
       - name: Running Unit Tests
         run: |
           cd backend
+          chmod +x mvnw
           ./mvnw clean test
 
 
