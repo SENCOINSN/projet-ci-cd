@@ -47,10 +47,10 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-#      - name: Running Unit Tests
-#        run: |
-#          cd backend
-#          ./mvnw clean test
+      - name: Running Unit Tests
+        run: |
+          cd backend
+          ./mvnw clean test
 
 
   build:
