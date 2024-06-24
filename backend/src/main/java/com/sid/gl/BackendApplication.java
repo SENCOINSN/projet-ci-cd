@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -22,57 +23,37 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	/*@Bean
+	@Profile("!test")
+	@Bean
 	CommandLineRunner commandLineRunner(StudentRepository studentRepository,
 										PaymentRepository paymentRepository){
-
+		System.out.println("elemments added");
 		return args -> {
-			studentRepository.save(Student.builder()
-							.id(UUID.randomUUID().toString())
-							.code("113030")
-							.firstName("adama")
-							.lastName("seye")
-							.programId("SDIA")
+			    studentRepository.save(Student.builder()
+					.programId("programId")
+					.lastName("lastname")
+					.firstName("firstname")
+					.code("code")
+					.id("id")
+					.photo("photo")
+					.build());
+
+			 studentRepository.save(Student.builder()
+					.programId("programId")
+					.lastName("lastname2")
+					.firstName("firstname2")
+					.code("code1")
+					.id("id1")
+					.photo("photo")
 					.build());
 
 			studentRepository.save(Student.builder()
-					.id(UUID.randomUUID().toString())
-					.code("1130370")
-					.firstName("adama")
-					.lastName("seye")
-					.programId("SDIA")
-					.build());
-
-			studentRepository.save(Student.builder()
-					.id(UUID.randomUUID().toString())
-					.code("113930")
-					.firstName("maty")
-					.lastName("seye")
-					.programId("SDIA")
-					.build());
-
-			studentRepository.save(Student.builder()
-					.id(UUID.randomUUID().toString())
-					.code("113430")
-					.firstName("Marie")
-					.lastName("seye")
-					.programId("GLSID")
-					.build());
-
-			studentRepository.save(Student.builder()
-					.id(UUID.randomUUID().toString())
-					.code("1130301")
-					.firstName("Daba")
-					.lastName("seye")
-					.programId("GLSID")
-					.build());
-
-			studentRepository.save(Student.builder()
-					.id(UUID.randomUUID().toString())
-					.code("11303022")
-					.firstName("Mame Adam")
-					.lastName("seye")
-					.programId("BDCC")
+					.programId("programId")
+					.lastName("lastname1")
+					.firstName("firstname1")
+					.code("code2")
+					.id("id2")
+					.photo("photo")
 					.build());
 			PaymentType[] paymentTypes = PaymentType.values();
 			Random random = new Random();
@@ -80,8 +61,8 @@ public class BackendApplication {
 				for(int i=0;i<10;i++){
 					int index = random.nextInt(paymentTypes.length);
 					Payment payment = Payment.builder()
-							.amount(1000+ (int)Math.random()+20000)
-							.paymentType(paymentTypes[index])
+							.amount(1200)
+							.paymentType(PaymentType.CASH)
 							.paymentStatus(PaymentStatus.CREATED)
 							.date(LocalDate.now())
 							.student(student)
@@ -90,5 +71,5 @@ public class BackendApplication {
 				}
 			});
 		};
-	}*/
+	}
 }
