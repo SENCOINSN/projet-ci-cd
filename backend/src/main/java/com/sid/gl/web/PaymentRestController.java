@@ -4,6 +4,7 @@ import com.sid.gl.dto.PaymentRequest;
 import com.sid.gl.dto.PaymentResponse;
 import com.sid.gl.entities.PaymentStatus;
 import com.sid.gl.entities.PaymentType;
+import com.sid.gl.exceptions.PaymentNotFoundException;
 import com.sid.gl.services.PaymentService;
 import com.sid.gl.services.StudentService;
 import com.sid.gl.utils.PaymentUtils;
@@ -36,7 +37,7 @@ private PaymentService paymentService;
     }
 
     @GetMapping(path = "/paymentsByStatus")
-    public List<PaymentResponse> allPaymentsByStatus(@RequestParam PaymentStatus paymentStatus){
+    public List<PaymentResponse> allPaymentsByStatus(@RequestParam(defaultValue = "CREATED") PaymentStatus paymentStatus){
         return paymentService.allPaymentByStatus(paymentStatus);
     }
 
@@ -47,12 +48,13 @@ private PaymentService paymentService;
     }
 
     @GetMapping(path="/payments/{id}")
-    public PaymentResponse getPaymentById(@PathVariable("id") Long id){
+    public PaymentResponse getPaymentById(@PathVariable("id") Long id) throws PaymentNotFoundException {
         return paymentService.getPaymentById(id);
     }
 
-    @PutMapping(path = "payments/{id}")
-    public PaymentResponse updatePaymentStatus(@RequestParam(value = "paymentStatus") PaymentStatus paymentStatus,@PathVariable("id") Long id){
+    @PutMapping(path = "/payments")
+    public PaymentResponse updatePaymentStatus(@RequestParam(value = "paymentStatus") PaymentStatus paymentStatus,
+                                               @RequestParam("id") Long id){
         return paymentService.updatePaymentStatus(paymentStatus,id);
     }
 

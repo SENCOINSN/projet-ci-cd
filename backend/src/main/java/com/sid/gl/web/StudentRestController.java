@@ -33,10 +33,6 @@ public class StudentRestController {
 
     @GetMapping(path = "students-by-program")
     public Map<String,List<StudentResponse>> studentByProgramId(){
-        /*return studentRepository.findAll()
-                .stream()
-                .flatMap(Stream::ofNullable) //possible change it of flatmap (Stream::ofNullable)
-                .collect(Collectors.groupingBy(Student::getProgramId));*/
         return studentService.studentByProgramId();
 
     }

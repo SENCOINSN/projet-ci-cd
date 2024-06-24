@@ -5,6 +5,7 @@ import com.sid.gl.entities.Payment;
 import com.sid.gl.entities.PaymentStatus;
 import com.sid.gl.entities.PaymentType;
 import com.sid.gl.entities.Student;
+import com.sid.gl.exceptions.PaymentNotFoundException;
 import com.sid.gl.repository.PaymentRepository;
 import com.sid.gl.repository.StudentRepository;
 import org.assertj.core.api.AssertionsForClassTypes;
@@ -207,11 +208,11 @@ public class PaymentServiceTest {
         Long id=9L;
         Mockito.when(paymentRepository.findById(id)).thenReturn(Optional.empty());
         AssertionsForClassTypes.assertThatThrownBy(()->paymentService.getPaymentById(id))
-                .isInstanceOf(RuntimeException.class);
+                .isInstanceOf(PaymentNotFoundException.class);
     }
 
     @Test
-    void shouldRetrievePayment() {
+    void shouldRetrievePayment() throws PaymentNotFoundException {
         Student student2 = Student.builder()
                 .programId("programId")
                 .lastName("lastname1")
@@ -236,6 +237,46 @@ public class PaymentServiceTest {
         PaymentResponse result = paymentService.getPaymentById(paymentId);
         assertNotNull(result);
         AssertionsForClassTypes.assertThat(expected).usingRecursiveComparison().isEqualTo(result);
+    }
+
+    @Test
+    public void should_update_payment_status(){
+        Student student = Student.builder()
+                .programId("programId")
+                .lastName("lastname")
+                .firstName("firstname")
+                .code("code")
+                .id("id")
+                .photo("photo")
+                .build();
+
+       Long paymentId=1L;
+       Payment payment =  Payment.builder().file("file").id(1L).date(LocalDate.now())
+               .paymentStatus(PaymentStatus.CREATED)
+               .amount(1200)
+               .paymentType(PaymentType.CASH)
+               .student(student)
+               .build();
+
+        Payment paymentExpected =  Payment.builder().file("file").id(1L).date(LocalDate.now())
+                .paymentStatus(PaymentStatus.VALIDATED)
+                .amount(1200)
+                .paymentType(PaymentType.CASH)
+                .student(student)
+                .build();
+       PaymentResponse expected =  PaymentResponse.builder().file("file").id(1L).date(LocalDate.now())
+               .status(PaymentStatus.VALIDATED)
+               .amount(1200)
+               .type(PaymentType.CASH)
+               .studentCode(student.getCode())
+               .build();
+
+       Mockito.when(paymentRepository.findById(paymentId)).thenReturn(Optional.of(payment));
+       Mockito.when(paymentRepository.save(payment)).thenReturn(paymentExpected);
+       PaymentResponse result = paymentService.updatePaymentStatus(PaymentStatus.VALIDATED,paymentId);
+       assertNotNull(result);
+       AssertionsForClassTypes.assertThat(expected).usingRecursiveComparison().isEqualTo(result);
+
     }
 
 }
